@@ -1,13 +1,10 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
-import { PeriodicElement, TABLE_DATA } from '../../data/elements.data';
+import { Component } from '@angular/core';
+import { TABLE_DATA } from '../../data/elements.data';
+import { PeriodicElement } from '../../models/periodic-element.model';
+import { Tile } from './tile.model';
 
 const COLUMNS_COUNT = 18;
 const ROWS_COUNT = 9;
-
-interface Tile {
-  column: number;
-  element?: PeriodicElement;
-}
 
 @Component({
   selector: 'app-table',
@@ -16,41 +13,32 @@ interface Tile {
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class TableComponent implements OnInit {
-  gridRef = viewChild<ElementRef>('gridRef');
-
+export class TableComponent {
   readonly tableData = TABLE_DATA;
 
-  // tiles: Coords[] = [];
   tableRows: { rowNumber: number; tiles: Tile[] }[] = this._initiateTable();
-
-  ngOnInit(): void {
-    // this._initiateTable();
-  }
 
   private _initiateTable() {
     const tableRows = [];
 
-    for (let y = 0; y < ROWS_COUNT; y++) {
+    for (let rowIdx = 0; rowIdx < ROWS_COUNT; rowIdx++) {
       const tiles = [];
 
-      for (let x = 0; x < COLUMNS_COUNT; x++) {
-        const tileData = this.tableData.rows[y]?.elements.find(
-          (element) => element.rowPosition === x + 1
+      for (let colIdx = 0; colIdx < COLUMNS_COUNT; colIdx++) {
+        const tileData = this.tableData.rows[rowIdx]?.elements.find(
+          (element) => element.rowPosition === colIdx + 1
         );
-        console.log(this.tableData.rows[y]);
-        tiles.push({ column: x + 1, element: tileData ? tileData : undefined });
+        console.log(this.tableData.rows[rowIdx]);
+        tiles.push({
+          column: colIdx + 1,
+          row: rowIdx + 1,
+          element: tileData ? tileData : undefined,
+        });
       }
 
-      tableRows.push({ rowNumber: y + 1, tiles });
+      tableRows.push({ rowNumber: rowIdx + 1, tiles });
     }
 
-    console.log(tableRows);
-
     return tableRows;
-  }
-
-  private _generateEmptyTiles() {
-    // TABLE_DATA.rows.map(())
   }
 }

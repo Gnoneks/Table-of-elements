@@ -1,7 +1,9 @@
-export const TABLE_DATA: Table = {
+import { PeriodicElement } from "../models/periodic-element.model";
+
+export const TABLE_DATA: TableData = {
   rows: [
     {
-      rowCount: 1,
+      row: 1,
       elements: [
         {
           position: 1,
@@ -20,7 +22,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 2,
+      row: 2,
       elements: [
         {
           position: 3,
@@ -81,7 +83,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 3,
+      row: 3,
       elements: [
         {
           position: 11,
@@ -142,7 +144,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 4,
+      row: 4,
       elements: [
         {
           position: 19,
@@ -273,7 +275,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 5,
+      row: 5,
       elements: [
         {
           name: 'Rubidium',
@@ -404,7 +406,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 6,
+      row: 6,
       elements: [
         {
           name: 'Cesium',
@@ -535,7 +537,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 7,
+      row: 7,
       elements: [
         {
           name: 'Francium',
@@ -666,7 +668,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 8,
+      row: 8,
       elements: [
         {
           name: 'Cerium',
@@ -769,7 +771,7 @@ export const TABLE_DATA: Table = {
       ],
     },
     {
-      rowCount: 9,
+      row: 9,
       elements: [
         {
           name: 'Thorium',
@@ -874,14 +876,8 @@ export const TABLE_DATA: Table = {
   ],
 };
 
-export interface PeriodicElement {
-  position: number;
-  name: string;
-  weight: number;
-  symbol: string;
-  rowPosition: number;
-}
 
-interface Table {
-  rows: { rowCount: number; elements: PeriodicElement[] }[];
+
+interface TableData {
+  rows: { row: number; elements: PeriodicElement[] }[];
 }
