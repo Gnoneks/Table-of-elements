@@ -1,0 +1,16 @@
+<div class="table">
+  @for (row of tableRows; track $index) {
+  <div class="table__row">{{row.rowNumber}}
+    @for (tile of row.tiles; track $index) {
+    @if (
+    tile.element
+    ) {
+    <div class="table__tile">{{tile.element.name}}</div>
+    }
+    @else {
+    <div class="table__tile table__tile--empty"></div>
+    }
+    }
+  </div>
+  }
+</div>
