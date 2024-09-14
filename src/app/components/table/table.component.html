@@ -1,4 +1,10 @@
 <div class="table">
+  <div class="tabe__filter">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput [formControl]="filterControl"/>
+    </mat-form-field>
+  </div>
   @for (row of tableRows; track $index) {
   <div class="table__row">
     <p class="table__row-number">{{row.rowNumber}}</p>
@@ -6,7 +12,7 @@
     @if (
     tile.element
     ) {
-    <div class="table__tile" (click)="openEditDialog(tile)">
+    <div class="table__tile" [class.table__tile--highlighted]="tile | checkTile : highlightedTiles" (click)="openEditDialog(tile)">
       <span class="table__position">{{tile.element.position}}</span>
       <span class="table__symbol">{{tile.element.symbol}}</span>
       @if (!(isMobile$ | async)) {
