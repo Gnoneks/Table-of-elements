@@ -30,13 +30,13 @@
         align-items: center;
         background-color: orange;
         border: 1px solid black;
-        transition: transform 0.2s ease-out, filter 0.1s ease-out;
+        transition: transform 0.2s ease-out, filter 0.3s ease-out;
         cursor: pointer;
         overflow: hidden;
 
         &:hover {
             transform: scale(1.04);
-            filter: brightness(0.95)
+            filter: brightness(1.5)
         }
 
 
@@ -45,6 +45,10 @@
             border: 1px solid transparent;
             transform: none;
             cursor: none;
+        }
+
+        &--highlighted {
+            filter: brightness(1.4)
         }
     }
 

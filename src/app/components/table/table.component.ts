@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { TABLE_DATA } from '../../data/elements.data';
 import { Tile } from './tile.model';
 import { DeviceCheckerService } from '../../shared/device-checker.service';
@@ -6,7 +6,17 @@ import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PeriodicElement } from '../../models/periodic-element.model';
 import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog/edit-tile-dialog.component';
-import { filter } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CheckTilePipe } from './check-tile.pipe';
 
 const COLUMNS_COUNT = 18;
 const ROWS_COUNT = 9;
@@ -14,23 +24,36 @@ const ROWS_COUNT = 9;
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [AsyncPipe, MatDialogModule],
+  imports: [
+    AsyncPipe,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    CheckTilePipe,
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class TableComponent {
+export class TableComponent implements OnInit, OnDestroy {
   private _tableData = structuredClone(TABLE_DATA);
 
   tableRows: { rowNumber: number; tiles: Tile[] }[] = this._initiateTable();
+  filterControl = new FormControl('');
+  highlightedTiles: Tile[] = [];
   // TODO TableData will come from request
   readonly isMobile$ = this._deviceCheckerService.isMobile();
 
   private readonly _dialog = inject(MatDialog);
+  private readonly _destroy$ = new Subject<void>();
 
   constructor(private readonly _deviceCheckerService: DeviceCheckerService) {}
 
+  ngOnInit() {
+    this._listenToFilterChange();
+  }
+
   private _initiateTable() {
-    this.isMobile$?.subscribe((val) => console.log(val));
     const tableRows = [];
 
     for (let rowIdx = 0; rowIdx < ROWS_COUNT; rowIdx++) {
@@ -54,6 +77,48 @@ export class TableComponent {
     return tableRows;
   }
 
+  private _listenToFilterChange() {
+    this.filterControl.valueChanges
+      .pipe(
+        debounceTime(2000),
+        distinctUntilChanged(),
+        takeUntil(this._destroy$)
+      )
+      .subscribe((searchValue) => {
+        this.highlightedTiles = [];
+
+        if (searchValue) this._searchTiles(searchValue);
+      });
+  }
+
+  private _searchTiles(searchValue: string) {
+    for (let rowIdx = 0; rowIdx < this.tableRows.length; rowIdx++) {
+      const row = this.tableRows[rowIdx];
+
+      for (let tileIdx = 0; tileIdx < row.tiles.length; tileIdx++) {
+        const tile = row.tiles[tileIdx];
+
+        if (
+          tile.element &&
+          this._checkTileIncludesValue(tile.element, searchValue)
+        ) {
+          this.highlightedTiles.push(tile);
+        }
+      }
+    }
+  }
+
+  private _checkTileIncludesValue(
+    element: PeriodicElement,
+    searchValue: string
+  ) {
+    return Object.values(element).some((value) => {
+      const valueStr = value.toString().toLowerCase();
+
+      return valueStr.includes(searchValue.toLowerCase());
+    });
+  }
+
   openEditDialog(tileData: Tile) {
     this._dialog
       .open(EditTileDialogComponent, {
@@ -71,5 +136,10 @@ export class TableComponent {
     );
 
     this.tableRows[editedRow].tiles[elementIdx].element = editedElement;
+  }
+
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }
