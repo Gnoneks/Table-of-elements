@@ -1,4 +1,4 @@
-import { PeriodicElement } from "../models/periodic-element.model";
+import { PeriodicElement } from '../models/periodic-element.model';
 
 export const TABLE_DATA: TableData = {
   rows: [
@@ -247,7 +247,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Arsenic',
           position: 33,
-          weight: 74.9215956,
+          weight: 74.9216,
           symbol: 'As',
           column: 15,
         },
@@ -280,7 +280,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Rubidium',
           position: 37,
-          weight: 85.46783,
+          weight: 85.4678,
           symbol: 'Rb',
           column: 1,
         },
@@ -294,7 +294,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Yttrium',
           position: 39,
-          weight: 88.905842,
+          weight: 88.9058,
           symbol: 'Y',
           column: 3,
         },
@@ -308,7 +308,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Niobium',
           position: 41,
-          weight: 92.906372,
+          weight: 92.9064,
           symbol: 'Nb',
           column: 5,
         },
@@ -336,7 +336,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Rhodium',
           position: 45,
-          weight: 102.905502,
+          weight: 102.9055,
           symbol: 'Rh',
           column: 9,
         },
@@ -350,7 +350,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Silver',
           position: 47,
-          weight: 107.86822,
+          weight: 107.8682,
           symbol: 'Ag',
           column: 11,
         },
@@ -392,7 +392,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Iodine',
           position: 53,
-          weight: 126.904473,
+          weight: 126.9045,
           symbol: 'I',
           column: 17,
         },
@@ -411,7 +411,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Cesium',
           position: 55,
-          weight: 132.905451966,
+          weight: 132.9055,
           symbol: 'Cs',
           column: 1,
         },
@@ -425,7 +425,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Lanthanum',
           position: 57,
-          weight: 138.905477,
+          weight: 138.9055,
           symbol: 'La',
           column: 3,
         },
@@ -439,7 +439,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Tantalum',
           position: 73,
-          weight: 180.947882,
+          weight: 180.9479,
           symbol: 'Ta',
           column: 5,
         },
@@ -481,7 +481,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Gold',
           position: 79,
-          weight: 196.9665695,
+          weight: 196.9666,
           symbol: 'Au',
           column: 11,
         },
@@ -509,7 +509,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Bismuth',
           position: 83,
-          weight: 208.980401,
+          weight: 208.9804,
           symbol: 'Bi',
           column: 15,
         },
@@ -680,7 +680,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Praseodymium',
           position: 59,
-          weight: 140.907662,
+          weight: 140.9077,
           symbol: 'Pr',
           column: 5,
         },
@@ -722,7 +722,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Terbium',
           position: 65,
-          weight: 158.925352,
+          weight: 158.9254,
           symbol: 'Tb',
           column: 11,
         },
@@ -736,7 +736,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Holmium',
           position: 67,
-          weight: 164.930332,
+          weight: 164.9303,
           symbol: 'Ho',
           column: 13,
         },
@@ -750,7 +750,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Thulium',
           position: 69,
-          weight: 168.934222,
+          weight: 168.9342,
           symbol: 'Tm',
           column: 15,
         },
@@ -764,7 +764,7 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Lutetium',
           position: 71,
-          weight: 174.96681,
+          weight: 174.9668,
           symbol: 'Lu',
           column: 17,
         },
@@ -776,21 +776,21 @@ export const TABLE_DATA: TableData = {
         {
           name: 'Thorium',
           position: 90,
-          weight: 232.03774,
+          weight: 232.0377,
           symbol: 'Th',
           column: 4,
         },
         {
           name: 'Protactinium',
           position: 91,
-          weight: 231.035882,
+          weight: 231.0359,
           symbol: 'Pa',
           column: 5,
         },
         {
           name: 'Uranium',
           position: 92,
-          weight: 238.028913,
+          weight: 238.0289,
           symbol: 'U',
           column: 6,
         },
@@ -875,8 +875,6 @@ export const TABLE_DATA: TableData = {
     },
   ],
 };
-
-
 
 interface TableData {
   rows: { row: number; elements: PeriodicElement[] }[];
