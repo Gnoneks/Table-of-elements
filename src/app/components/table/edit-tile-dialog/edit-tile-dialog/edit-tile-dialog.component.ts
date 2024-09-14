@@ -31,7 +31,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 })
 export class EditTileDialogComponent {
   private readonly _dialogRef = inject(MatDialogRef<EditTileDialogComponent>);
-  
+
   readonly elementData = inject<PeriodicElement>(MAT_DIALOG_DATA);
   readonly dialogForm = this._initDialogForm();
 
@@ -47,6 +47,8 @@ export class EditTileDialogComponent {
   }
 
   onConfirm() {
-    this._dialogRef.close(this.dialogForm.value);
+    if (this.dialogForm.valid) {
+      this._dialogRef.close(this.dialogForm.value);
+    }
   }
 }
