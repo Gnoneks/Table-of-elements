@@ -1,20 +1,20 @@
 <h2 mat-dialog-title>Edit {{elementData.name}}</h2>
-<mat-dialog-content [formGroup]="dialogForm">
+<mat-dialog-content class="dialog" [formGroup]="dialogForm">
   <mat-form-field>
     <mat-label>Position</mat-label>
-    <input matInput formControlName="position" />
+    <input matInput formControlName="position" maxlength="3"/>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Symbol</mat-label>
-    <input matInput formControlName="symbol" />
+    <input matInput formControlName="symbol" maxlength="3"/>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput formControlName="name" />
+    <input matInput formControlName="name" maxlength="30"/>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Weight</mat-label>
-    <input matInput formControlName="weight" />
+    <input matInput formControlName="weight" maxlength="10"/>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
