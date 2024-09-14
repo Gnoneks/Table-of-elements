@@ -6,7 +6,7 @@
     @if (
     tile.element
     ) {
-    <div class="table__tile" (click)="openEditDialog(tile.element)">
+    <div class="table__tile" (click)="openEditDialog(tile)">
       <span class="table__position">{{tile.element.position}}</span>
       <span class="table__symbol">{{tile.element.symbol}}</span>
       @if (!(isMobile$ | async)) {

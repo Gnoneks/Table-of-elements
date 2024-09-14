@@ -3,5 +3,5 @@ export interface PeriodicElement {
     name: string;
     weight: number;
     symbol: string;
-    rowPosition: number;
+    column: number;
   }

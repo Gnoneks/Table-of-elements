@@ -6,6 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PeriodicElement } from '../../models/periodic-element.model';
 import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog/edit-tile-dialog.component';
+import { filter } from 'rxjs';
 
 const COLUMNS_COUNT = 18;
 const ROWS_COUNT = 9;
@@ -18,8 +19,10 @@ const ROWS_COUNT = 9;
   styleUrl: './table.component.scss',
 })
 export class TableComponent {
-  readonly tableRows: { rowNumber: number; tiles: Tile[] }[] = this._initiateTable();
+  private _tableData = structuredClone(TABLE_DATA);
 
+  tableRows: { rowNumber: number; tiles: Tile[] }[] = this._initiateTable();
+  // TODO TableData will come from request
   readonly isMobile$ = this._deviceCheckerService.isMobile();
 
   private readonly _dialog = inject(MatDialog);
@@ -34,8 +37,8 @@ export class TableComponent {
       const tiles = [];
 
       for (let colIdx = 0; colIdx < COLUMNS_COUNT; colIdx++) {
-        const tileData = TABLE_DATA.rows[rowIdx]?.elements.find(
-          (element) => element.rowPosition === colIdx + 1
+        const tileData = this._tableData.rows[rowIdx]?.elements.find(
+          ({ column }) => column === colIdx + 1
         );
 
         tiles.push({
@@ -51,13 +54,22 @@ export class TableComponent {
     return tableRows;
   }
 
-  openEditDialog(element: PeriodicElement) {
-    const dialogRef = this._dialog.open(EditTileDialogComponent, {
-      data: element,
-    });
+  openEditDialog(tileData: Tile) {
+    this._dialog
+      .open(EditTileDialogComponent, {
+        data: tileData.element,
+      })
+      .afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe((editedElement) => this._updateTile(tileData, editedElement));
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+  private _updateTile(tileData: Tile, editedElement: PeriodicElement) {
+    const editedRow = tileData.row - 1;
+    const elementIdx = this.tableRows[editedRow].tiles.findIndex(
+      (el) => el.column === tileData.column
+    );
+
+    this.tableRows[editedRow].tiles[elementIdx].element = editedElement;
   }
 }
