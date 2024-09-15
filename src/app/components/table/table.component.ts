@@ -4,7 +4,7 @@ import { DeviceCheckerService } from '../../shared/device-checker.service';
 import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PeriodicElement } from './models/periodic-element.model';
-import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog/edit-tile-dialog.component';
+import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog.component';
 import {
   catchError,
   debounceTime,
