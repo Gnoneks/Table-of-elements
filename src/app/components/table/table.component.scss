@@ -11,10 +11,12 @@
     flex-direction: column;
     justify-content: center;
     overflow: scroll;
+    gap: 2px;
 
     &__row {
         display: flex;
         align-items: center;
+        gap: 2px;
     }
 
     &__row-number {
@@ -28,9 +30,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: orange;
-        border: 1px solid black;
+        background-color: #4e4e4e;
+        border: 1px solid rgb(65, 65, 65);
         transition: transform 0.2s ease-out, filter 0.3s ease-out;
+        border-radius: 5px;
         cursor: pointer;
         overflow: hidden;
 
@@ -39,6 +42,41 @@
             filter: brightness(1.5)
         }
 
+        &--alkali-metal {
+            background-color: rgb(153, 84, 1);
+        }
+
+        &--alkaline-earth-metal {
+            background-color: rgb(177, 128, 24);
+        }
+
+        &--lanthanoid {
+            background-color: rgb(124, 86, 46);
+        }
+
+        &--actinoid {
+            background-color: rgb(153, 63, 102);
+        }
+
+        &--transition-metal {
+            background-color: rgb(151, 22, 35);
+        }
+
+        &--post-transition-metal {
+            background-color: rgb(2, 86, 160);
+        }
+
+        &--metalloid {
+            background-color: rgb(1, 122, 106);
+        }
+
+        &--reactive-nonmetal {
+            background-color: rgb(90, 145, 35);
+        }
+
+        &--noble-gas {
+            background-color: rgb(97, 56, 136);
+        }
 
         &--empty {
             background-color: transparent;
@@ -50,6 +88,7 @@
         &--highlighted {
             filter: brightness(1.4)
         }
+
     }
 
     &__position {

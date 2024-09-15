@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Tile } from './models/tile.model';
-import { DeviceCheckerService } from '../../shared/device-checker.service';
-import { AsyncPipe } from '@angular/common';
+import { DeviceCheckerService } from '../../services/device-checker.service';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PeriodicElement } from './models/periodic-element.model';
 import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog.component';
@@ -17,8 +17,9 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CheckTilePipe } from './check-tile.pipe';
+import { CheckTilePipe } from '../../pipes/check-tile.pipe';
 import { TableService } from './table.service';
+import { PropToClassPipe } from '../../pipes/prop-to-class.pipe';
 
 const COLUMNS_COUNT = 18;
 const ROWS_COUNT = 9;
@@ -33,6 +34,8 @@ const ROWS_COUNT = 9;
     MatInputModule,
     ReactiveFormsModule,
     CheckTilePipe,
+    PropToClassPipe,
+    NgClass,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',

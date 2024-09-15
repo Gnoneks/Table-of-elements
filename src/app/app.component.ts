@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TableComponent } from './components/table/table.component';
-import { DeviceCheckerService } from './shared/device-checker.service';
-import { IsBrowserService } from './shared/is-browser.service';
+import { DeviceCheckerService } from './services/device-checker.service';
+import { IsBrowserService } from './services/is-browser.service';
 
 @Component({
   selector: 'app-root',
