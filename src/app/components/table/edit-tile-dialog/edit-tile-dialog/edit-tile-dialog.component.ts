@@ -10,7 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PeriodicElement } from '../../../../models/periodic-element.model';
+import { PeriodicElement } from '../../models/periodic-element.model';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
