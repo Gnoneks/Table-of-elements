@@ -1,22 +1,24 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { TABLE_DATA } from '../../data/elements.data';
-import { Tile } from './tile.model';
+import { Tile } from './models/tile.model';
 import { DeviceCheckerService } from '../../shared/device-checker.service';
 import { AsyncPipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PeriodicElement } from '../../models/periodic-element.model';
+import { PeriodicElement } from './models/periodic-element.model';
 import { EditTileDialogComponent } from './edit-tile-dialog/edit-tile-dialog/edit-tile-dialog.component';
 import {
+  catchError,
   debounceTime,
   distinctUntilChanged,
   filter,
   Subject,
   takeUntil,
+  throwError,
 } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CheckTilePipe } from './check-tile.pipe';
+import { TableService } from './table.service';
 
 const COLUMNS_COUNT = 18;
 const ROWS_COUNT = 9;
@@ -34,47 +36,55 @@ const ROWS_COUNT = 9;
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
+  providers: [TableService],
 })
 export class TableComponent implements OnInit, OnDestroy {
-  private _tableData = structuredClone(TABLE_DATA);
-
-  tableRows: { rowNumber: number; tiles: Tile[] }[] = this._initiateTable();
+  tableRows: { rowNumber: number; tiles: Tile[] }[] = [];
   filterControl = new FormControl('');
   highlightedTiles: Tile[] = [];
-  // TODO TableData will come from request
+
   readonly isMobile$ = this._deviceCheckerService.isMobile();
 
   private readonly _dialog = inject(MatDialog);
   private readonly _destroy$ = new Subject<void>();
 
-  constructor(private readonly _deviceCheckerService: DeviceCheckerService) {}
+  constructor(
+    private readonly _deviceCheckerService: DeviceCheckerService,
+    private readonly _tableService: TableService
+  ) {}
 
   ngOnInit() {
+    this._initiateTable();
     this._listenToFilterChange();
   }
 
   private _initiateTable() {
-    const tableRows = [];
+    this._tableService
+      .getTableData()
+      .pipe(catchError((err) => throwError(() => err)))
+      .subscribe((data) => {
+        const tableRows = [];
 
-    for (let rowIdx = 0; rowIdx < ROWS_COUNT; rowIdx++) {
-      const tiles = [];
+        for (let rowIdx = 0; rowIdx < ROWS_COUNT; rowIdx++) {
+          const tiles = [];
 
-      for (let colIdx = 0; colIdx < COLUMNS_COUNT; colIdx++) {
-        const tileData = this._tableData.rows[rowIdx]?.elements.find(
-          ({ column }) => column === colIdx + 1
-        );
+          for (let colIdx = 0; colIdx < COLUMNS_COUNT; colIdx++) {
+            const tileData = data[rowIdx]?.elements.find(
+              ({ column }) => column === colIdx + 1
+            );
 
-        tiles.push({
-          column: colIdx + 1,
-          row: rowIdx + 1,
-          element: tileData ? tileData : undefined,
-        });
-      }
+            tiles.push({
+              column: colIdx + 1,
+              row: rowIdx + 1,
+              element: tileData ? tileData : undefined,
+            });
+          }
 
-      tableRows.push({ rowNumber: rowIdx + 1, tiles });
-    }
+          tableRows.push({ rowNumber: rowIdx + 1, tiles });
+        }
 
-    return tableRows;
+        this.tableRows.push(...tableRows);
+      });
   }
 
   private _listenToFilterChange() {
