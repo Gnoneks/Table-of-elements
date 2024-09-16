@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PropToClassPipe implements PipeTransform {
   transform(value: string): string {
-    console.log(value.toLocaleLowerCase().replaceAll(' ', '-'))
     return value.toLocaleLowerCase().replaceAll(' ', '-');
   }
 }

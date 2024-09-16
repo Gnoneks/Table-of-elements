@@ -5,13 +5,22 @@
 }
 
 .table {
-    width: 100%;
-    height: 100%;
     display: flex;
+    margin: auto;
+    max-width: 1280px;
+    padding: 0 32px;
     flex-direction: column;
-    justify-content: center;
-    overflow: scroll;
-    gap: 2px;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &__elements {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
 
     &__row {
         display: flex;
@@ -25,8 +34,9 @@
     }
 
     &__tile {
-        height: 48px;
-        min-width: 32px;
+        height: 56px;
+        min-width: 48px;
+        max-width: 48px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -35,7 +45,6 @@
         transition: transform 0.2s ease-out, filter 0.3s ease-out;
         border-radius: 5px;
         cursor: pointer;
-        overflow: hidden;
 
         &:hover {
             transform: scale(1.04);
@@ -96,25 +105,47 @@
     }
 
     &__symbol {
-        font-size: 14px;
+        font-size: 16px;
     }
 }
 
 @media (min-width: media-queries.$tablet-up) {
     .table {
+        &__elements {
+            padding: 12px;
+        }
+
         &__tile {
             padding: 4px;
             height: unset;
-            width: 56px;
             line-height: 16px;
         }
-
 
         &__position,
         &__name {
             width: 100%;
             text-overflow: ellipsis;
             overflow: hidden;
+            font-size: 10px;
+        }
+
+        &__weight {
+            font-size: 8px;
+            line-height: 8px;
+        }
+
+    }
+}
+
+
+@media (min-width: media-queries.$desktop-up) {
+    .table {
+        &__elements {
+            margin: auto;
+        }
+
+        &__position,
+        &__name {
             font-size: 12px;
         }
 
@@ -128,13 +159,5 @@
             font-size: 8px;
             line-height: 8px;
         }
-    }
-}
-
-
-@media (min-width: media-queries.$desktop-up) {
-    .table {
-        align-items: center;
-        overflow: hidden;
     }
 }
