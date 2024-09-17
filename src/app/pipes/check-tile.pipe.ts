@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Tile } from './models/tile.model';
+import { Tile } from '../components/table/models/tile.model';
 
 @Pipe({
   name: 'checkTile',
