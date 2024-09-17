@@ -48,7 +48,10 @@ export class EditTileDialogComponent {
 
   onConfirm() {
     if (this.dialogForm.valid) {
-      this._dialogRef.close(this.dialogForm.value);
+      this._dialogRef.close({
+        ...this.dialogForm.value,
+        type: this.elementData.type,
+      });
     }
   }
 }
