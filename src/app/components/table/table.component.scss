@@ -1,0 +1,163 @@
+@use "../../styles/media-queries.scss";
+
+:host {
+    width: 100%;
+}
+
+.table {
+    display: flex;
+    margin: auto;
+    max-width: 1280px;
+    padding: 0 32px;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &__elements {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    &__row-number {
+        padding-right: 8px;
+        font-size: 16px;
+    }
+
+    &__tile {
+        height: 56px;
+        min-width: 48px;
+        max-width: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #4e4e4e;
+        border: 1px solid rgb(65, 65, 65);
+        transition: transform 0.2s ease-out, filter 0.3s ease-out;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.04);
+            filter: brightness(1.5)
+        }
+
+        &--alkali-metal {
+            background-color: rgb(153, 84, 1);
+        }
+
+        &--alkaline-earth-metal {
+            background-color: rgb(177, 128, 24);
+        }
+
+        &--lanthanoid {
+            background-color: rgb(124, 86, 46);
+        }
+
+        &--actinoid {
+            background-color: rgb(153, 63, 102);
+        }
+
+        &--transition-metal {
+            background-color: rgb(151, 22, 35);
+        }
+
+        &--post-transition-metal {
+            background-color: rgb(2, 86, 160);
+        }
+
+        &--metalloid {
+            background-color: rgb(1, 122, 106);
+        }
+
+        &--reactive-nonmetal {
+            background-color: rgb(90, 145, 35);
+        }
+
+        &--noble-gas {
+            background-color: rgb(97, 56, 136);
+        }
+
+        &--empty {
+            background-color: transparent;
+            border: 1px solid transparent;
+            transform: none;
+            cursor: none;
+        }
+
+        &--highlighted {
+            filter: brightness(1.4)
+        }
+
+    }
+
+    &__position {
+        font-size: 8px;
+    }
+
+    &__symbol {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: media-queries.$tablet-up) {
+    .table {
+        &__elements {
+            padding: 12px;
+        }
+
+        &__tile {
+            padding: 4px;
+            height: unset;
+            line-height: 16px;
+        }
+
+        &__position,
+        &__name {
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 10px;
+        }
+
+        &__weight {
+            font-size: 8px;
+            line-height: 8px;
+        }
+
+    }
+}
+
+
+@media (min-width: media-queries.$desktop-up) {
+    .table {
+        &__elements {
+            margin: auto;
+        }
+
+        &__position,
+        &__name {
+            font-size: 12px;
+        }
+
+
+        &__symbol {
+            font-size: 24px;
+            line-height: 24px;
+        }
+
+        &__weight {
+            font-size: 8px;
+            line-height: 8px;
+        }
+    }
+}
